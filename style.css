@@ -1,0 +1,170 @@
+/* --- 主題與字體大小 --- */
+:root {
+    /* 調整字體大小，增加差異 */
+    --font-size-small: 1.2rem;   /* 原本的 normal */
+    --font-size-normal: 1.5rem; /* 新的中等大小 */
+    --font-size-large: 2rem;  /* 新的大尺寸 */
+}
+
+body.font-size-small {
+    --font-size-base: var(--font-size-small);
+    font-size: var(--font-size-base);
+}
+
+body.font-size-normal {
+    --font-size-base: var(--font-size-normal);
+    font-size: var(--font-size-base);
+}
+
+body.font-size-large {
+    --font-size-base: var(--font-size-large);
+    font-size: var(--font-size-base);
+}
+
+/* 深色模式 */
+body[data-theme='dark'] {
+    background-color: #212529;
+    color: #dee2e6;
+}
+
+body[data-theme='dark'] .card {
+    background-color: #343a40;
+    border-color: #495057;
+}
+
+body[data-theme='dark'] .list-group-item {
+    background-color: #343a40;
+    border-color: #495057;
+}
+
+body[data-theme='dark'] .form-control,
+body[data-theme='dark'] .form-select {
+    font-size: inherit;
+    background-color: #495057;
+    color: #dee2e6;
+    border-color: #6c757d;
+}
+.form-control {
+    font-size: var(--font-size-base);
+}
+
+body[data-theme='dark'] .form-control::placeholder {
+    color: #adb5bd;
+}
+
+body[data-theme='dark'] .option-btn + .form-check-label {
+    color: inherit; /* 這種選項元件在深色模式下顏色不改變 */
+}
+
+body[data-theme='dark'] h1,
+body[data-theme='dark'] h3,
+body[data-theme='dark'] h5,
+body[data-theme='dark'] label:not(.form-check-label):not(.option-btn),
+body[data-theme='dark'] p,
+body[data-theme='dark'] span {
+    color: #f8f9fa; /* 其他的label才改變 */
+}
+
+/* 確保按鈕在深色模式下有正確的對比 */
+body[data-theme='dark'] .btn-outline-secondary {
+    color: #f8f9fa;
+    border-color: #6c757d;
+}
+
+body[data-theme='dark'] .btn-outline-secondary:hover {
+    background-color: #495057;
+}
+
+/* --- 通用樣式 --- */
+body {
+    font-family: 'Microsoft JhengHei', '微軟正黑體', sans-serif;
+}
+
+body .btn:not(#settings-toolbar .btn) {
+    transition: all 0.2s ease-in-out;
+    font-size: var(--font-size-base);
+    text-wrap: auto;
+}
+
+#settings-toolbar {
+    font-size: 1.3rem;
+}
+
+.form-select {
+    font-size: var(--font-size-base);
+}
+.col-md-3 {
+    margin-bottom: 30px;
+}
+
+/* --- 卡片樣式 --- */
+.card {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+/* --- 題目區 --- */
+#questionText {
+    font-size: calc(var(--font-size-base) + 0.5rem);
+    line-height: 1.6;
+}
+
+/* --- 選項容器 --- */
+.option-btn {
+    text-align: left;
+    white-space: normal; /* 讓長選項可以換行 */
+    padding: 0.75rem 1.25rem;
+}
+
+.option-btn.selected {
+    background-color: #cfe2ff; /* Bootstrap's primary-light */
+    border-color: #9ec5fe;
+}
+
+.option-btn.correct {
+    background-color: #d1e7dd; /* Bootstrap's success-light */
+    border-color: #a3cfbb;
+}
+
+.option-btn.incorrect {
+    background-color: #f8d7da; /* Bootstrap's danger-light */
+    border-color: #f1aeb5;
+}
+
+/* --- 答案區 --- */
+#answerSection h6 {
+    font-size: calc(var(--font-size-base) + 0.3rem);
+}
+
+/* --- 固定頁尾 --- */
+#questionContainer {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 150px); /* 根據您的頁首和邊距調整 */
+    margin-bottom: calc(100vh - 93vh);
+}
+
+#questionContainer .card-body {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+#questionContainer .card-footer {
+    flex-shrink: 0;
+}
+
+/* --- 模式專用背景色 --- */
+.mode-reading {
+    background-color: #e7f1ff; /* 淺藍色, 對應 btn-primary */
+}
+
+.mode-test {
+    background-color: #edfff7; /* 淺綠色, 對應 btn-success */
+}
+
+.mode-review {
+    background-color: #fff9e6; /* 淺黃色, 對應 btn-warning */
+}
+
+.mode-review-marked {
+    background-color: #e8feff; /* 淺青色, 對應 btn-info */
+}
