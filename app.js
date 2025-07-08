@@ -186,8 +186,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       showAnswerBtn.addEventListener('click', () => {
-        answerSection.classList.remove('d-none');
-        showAnswerBtn.classList.add('d-none');
+        answerSection.classList.toggle('d-none');
+        showAnswerBtn.textContent = answerSection.classList.contains('d-none') ? '顯示答案' : '隱藏答案';
+        const labels = optionsContainer.querySelectorAll('label.option-btn');
+        labels.forEach(lb => {
+          lb.classList.remove('correct', 'incorrect', 'btn-success', 'btn-danger', 'btn-primary', 'text-white');
+          lb.classList.add('btn-outline-primary');
+        });
       });
 
       // 「結束測驗」/「返回主選單」按鈕的統一事件處理
@@ -521,30 +526,49 @@ function setupTestMode() {
       'review_incorrect': '錯題複習',
       'review_marked': '複習標記'
     }[currentMode] || '';
-
     // 顯示選項
     const userAnswer = userAnswers[q.id] || '';
     q.options.forEach((opt, idx) => {
         const label = document.createElement('label');
-        label.classList.add('option-btn', 'btn', 'btn-outline-primary', 'mb-2', 'd-block');
+        label.classList.add('option-btn', 'btn', 'btn-outline-primary', 'mb-4', 'd-flex');
       
         const input = document.createElement('input');
         input.type = 'radio';
         input.name = 'option';
         input.value = (idx + 1).toString();
-        input.classList.add('me-2');
-        input.disabled = (currentMode === 'reading' || currentMode.startsWith('review'));
+        input.classList.add('me-4');
+        input.disabled = currentMode.startsWith('review');
         if (userAnswer === input.value) input.checked = true;
       
         input.addEventListener('change', () => {
           if (currentMode === 'test') {
             userAnswers[q.id] = input.value;
             updateOptionStyles(label);
+          } else if (currentMode === 'reading') {
+            // Reset styles on all labels first
+            const labels = optionsContainer.querySelectorAll('label.option-btn');
+            labels.forEach(lb => {
+              lb.classList.remove('correct', 'incorrect', 'btn-success', 'btn-danger', 'btn-primary', 'text-white');
+              lb.classList.add('btn-outline-primary');
+            });
+
+            // Apply feedback based on correctness
+            label.classList.remove('btn-outline-primary');
+            if (input.value === q.answer) {
+              label.classList.add('correct');
+            } else {
+              label.classList.add('incorrect');
+            }
+            answerSection.classList.remove('d-none');
+            showAnswerBtn.textContent = answerSection.classList.contains('d-none') ? '顯示答案' : '隱藏答案';
           }
         });
       
+        // Wrap the option text in a span
+        const optSpan = document.createElement('span');
+        optSpan.textContent = opt;
         label.appendChild(input);
-        label.appendChild(document.createTextNode(opt));
+        label.appendChild(optSpan);
         optionsContainer.appendChild(label);
       });
       
@@ -884,7 +908,7 @@ function setupTestMode() {
 
   // 啟動初始化
   initialize();
-
-
+  // 設置初值
+  document.documentElement.style.zoom = '67%';
 });
   

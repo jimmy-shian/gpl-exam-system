@@ -6,6 +6,11 @@
     --font-size-large: 2rem;  /* 新的大尺寸 */
 }
 
+.container {
+    max-width: none;
+    padding: 0 50px;
+}
+
 body.font-size-small {
     --font-size-base: var(--font-size-small);
     font-size: var(--font-size-base);
@@ -121,15 +126,24 @@ body .btn:not(#settings-toolbar .btn) {
 }
 
 .option-btn.correct {
-    background-color: #d1e7dd; /* Bootstrap's success-light */
-    border-color: #a3cfbb;
+    background-color: #cbffdd; /* 淺綠 */
+    border-color: #bce8d0;
+    color: #155724;
 }
 
 .option-btn.incorrect {
-    background-color: #f8d7da; /* Bootstrap's danger-light */
-    border-color: #f1aeb5;
+    background-color: #ffc6d3; /* 淺粉紅 */
+    border-color: #f5c2cd;
+    color: #842029;
 }
 
+body[data-theme='dark'] #optionsContainer > label {
+    --bs-btn-color: #2d2d2d;
+    --bs-btn-bg: #c9c9c9;
+}
+body #optionsContainer > label {
+    --bs-btn-color: #484848;
+}
 /* --- 答案區 --- */
 #answerSection h6 {
     font-size: calc(var(--font-size-base) + 0.3rem);
@@ -139,7 +153,7 @@ body .btn:not(#settings-toolbar .btn) {
 #questionContainer {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 150px); /* 根據您的頁首和邊距調整 */
+    height: 93%;
     margin-bottom: calc(100vh - 93vh);
 }
 
@@ -167,4 +181,27 @@ body .btn:not(#settings-toolbar .btn) {
 
 .mode-review-marked {
     background-color: #e8feff; /* 淺青色, 對應 btn-info */
+}
+
+body[data-theme='dark'] .mode-reading {
+    background-color: #95acc9;
+}
+
+body[data-theme='dark'] .mode-test {
+    background-color: #77a986;
+}
+
+body[data-theme='dark'] .mode-review {
+    background-color: #92a5c3;
+}
+
+body[data-theme='dark'] .mode-review-marked {
+    background-color: rgb(102, 186, 189);
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  transform: scale(1.8); /* 放大1.5倍 */
+  /* 同時調整margin避免排版跑掉 */
+  margin-right: 8px;
 }
