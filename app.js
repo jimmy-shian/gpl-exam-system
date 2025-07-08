@@ -241,6 +241,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function loadQuestions(test, category) {
+  // 顯示 Loading
+  document.getElementById('loadingOverlay').classList.remove('d-none');
     allQuestions = [];
     const testsToLoad = test === 'all' ? Array.from({ length: 10 }, (_, i) => `測驗${i + 1}`) : [test];
     const filesToLoad = category === 'all' ? ['法規.txt', '實務.txt', '其他.txt'] : [category];
@@ -261,6 +263,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+    // 隐藏 Loading
+    document.getElementById('loadingOverlay').classList.add('d-none');
   }
 
   function parseTxt(txt) {

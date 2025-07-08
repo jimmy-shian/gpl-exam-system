@@ -199,6 +199,24 @@ body[data-theme='dark'] .mode-review-marked {
     background-color: rgb(102, 186, 189);
 }
 
+/* --- Loading Overlay --- */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050; /* Above modal */
+}
+
+body[data-theme='dark'] .loading-overlay {
+  background: rgba(33, 37, 41, 0.8);
+}
+
 input[type="radio"] {
   transform: scale(1.8); /* 放大1.5倍 */
   /* 同時調整margin避免排版跑掉 */
