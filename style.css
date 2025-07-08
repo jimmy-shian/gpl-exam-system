@@ -199,7 +199,6 @@ body[data-theme='dark'] .mode-review-marked {
     background-color: rgb(102, 186, 189);
 }
 
-input[type="checkbox"],
 input[type="radio"] {
   transform: scale(1.8); /* 放大1.5倍 */
   /* 同時調整margin避免排版跑掉 */
