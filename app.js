@@ -369,6 +369,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // 顯示問題容器，隱藏主選單
       welcomeScreen.classList.add('d-none');
+      document.querySelector('.col-md-9').classList.add('border-0', 'rounded-0');
+
       questionContainer.classList.remove('d-none');
       testResultContainer.classList.add('d-none');
 
@@ -394,6 +396,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       welcomeScreen.classList.add('d-none');
+      document.querySelector('.col-md-9').classList.add('border-0', 'rounded-0');
+
       questionContainer.classList.remove('d-none');
       testResultContainer.classList.add('d-none');
 
@@ -607,6 +611,8 @@ function setupTestMode() {
 
     updateMarkButton();
     updateNavigationButtons();
+
+    showAnswerBtn.textContent = answerSection.classList.contains('d-none') ? '顯示答案' : '隱藏答案';
   }
 
   function startTimer() {

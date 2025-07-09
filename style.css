@@ -66,8 +66,8 @@ body[data-theme='dark'] h3,
 body[data-theme='dark'] h5,
 body[data-theme='dark'] label:not(.form-check-label):not(.option-btn),
 body[data-theme='dark'] p,
-body[data-theme='dark'] span {
-    color: #f8f9fa; /* 其他的label才改變 */
+body[data-theme='dark'] span:not(.option-btn span) {
+    color: #f8f9fa;
 }
 
 /* 確保按鈕在深色模式下有正確的對比 */
@@ -83,6 +83,7 @@ body[data-theme='dark'] .btn-outline-secondary:hover {
 /* --- 通用樣式 --- */
 body {
     font-family: 'Microsoft JhengHei', '微軟正黑體', sans-serif;
+    background-color: #e0e0e0;
 }
 
 body .btn:not(#settings-toolbar .btn) {
@@ -93,6 +94,11 @@ body .btn:not(#settings-toolbar .btn) {
 
 #settings-toolbar {
     font-size: 1.3rem;
+}
+
+.col-md-9 {
+    border: 2px solid #ccc;
+    border-radius: 10px;
 }
 
 .form-select {
