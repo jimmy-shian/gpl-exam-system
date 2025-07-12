@@ -49,11 +49,21 @@
                                 <option value="">-- 請選擇 --</option>
                             </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="categorySelect" class="form-label">選擇類別：</label>
-                            <select class="form-select" id="categorySelect">
-                                <option value="">-- 請先選擇測驗 --</option>
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="categorySelect" class="form-label">選擇類別：</label>
+                                <select class="form-select" id="categorySelect">
+                                    <option value="">-- 請先選擇測驗 --</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="typeSelect" class="form-label">題型：</label>
+                                <select class="form-select" id="typeSelect">
+                                    <option value="all">全部</option>
+                                    <option value="tf">是非題</option>
+                                    <option value="choice">選擇題</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="questionCount" class="form-label">測驗題數 (0為全部)</label>
@@ -82,8 +92,10 @@
             <div class="col-md-9">
                 <div id="questionContainer" class="card d-none">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="card-title mb-0" id="modeIndicator">閱讀模式</h5>
-                        <button id="deleteMistakeBtn" class="btn btn-sm btn-outline-danger ms-2 d-none">X</button>
+                        <div class="d-flex align-items-center">
+                            <h5 class="card-title mb-0" id="modeIndicator">閱讀模式</h5>
+                            <button id="deleteMistakeBtn" class="btn btn-sm btn-outline-danger ms-2 d-none">X</button>
+                        </div>
                         <div id="test-info" class="d-none">
                             <span id="timerDisplay" class="fw-bold">時間: 00:00</span>
                         </div>
