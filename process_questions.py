@@ -22,18 +22,44 @@ def parse_question(line):
         rest_of_line = rest_of_line[:question_note_match.start()]
 
     # Split the rest of the line by option markers like (1), (2)...
-    parts = re.split(r'\s*\([1-4OX]\)\s*', rest_of_line)
-    question_text = parts[0].strip()
+    parts = re.split(r'\([1-4OX]\)', rest_of_line)
+    question_text = parts[0]
+    tiao_note = ""
+
+    # 優先從題幹提取法條
+    match = re.search(r'\s?第\s*(\d+)\s+', question_text)
+    if match:
+        tiao_note = f"第{match.group(1)}條"
+        question_text = question_text.replace(match.group(0), '')
+
+    processed_option_texts = []
+    if len(parts) > 1:
+        temp_option_texts = parts[1:]
+        for opt_text in temp_option_texts:
+            # 如果題幹沒有，再從選項提取
+            if not tiao_note:
+                match = re.search(r'\s?第\s*(\d+)\s+', opt_text)
+                if match:
+                    tiao_note = f"第{match.group(1)}條"
+                    opt_text = opt_text.replace(match.group(0), '')
+            processed_option_texts.append(opt_text)
+
     final_main_note = main_note.strip()
     if final_main_note:
-        question_text += f" [{final_main_note}]"
+        if tiao_note:
+            question_text += f" [{final_main_note} ({tiao_note})]"
+        else:
+            question_text += f" [{final_main_note}]"
+    elif tiao_note:
+        question_text += f" [{tiao_note}]"
 
     options = []
     if len(parts) > 1:
-        option_texts = parts[1:]
+        option_texts = processed_option_texts
         for i, opt_text in enumerate(option_texts):
             opt_num = i + 1
-            opt_text = opt_text.strip()
+            # 移除 " 條 "、"\t條"、"條 " 這三種模式
+            opt_text = re.sub(r'(\s+條\s+|\t條|條\s+)', ' ', opt_text).strip()
             
             if i == len(option_texts) - 1: # Only check for notes in the last option
                 note_content = ''
@@ -61,7 +87,7 @@ def parse_question(line):
     return {
         'q_num': q_num,
         'answer': answer,
-        'question': question_text,
+        'question': re.sub(r'\s+', ' ', question_text).strip(),
         'options': options
     }
 
@@ -137,7 +163,7 @@ def main():
         base_name = chapter_title
         if ' 選擇題' in base_name:
             base_name = base_name.replace(' 選擇題', '')
-        output_filename = os.path.join(output_dir, f"{base_name}.txt")
+        output_filename = os.path.join(output_dir, f"{base_name.replace('政府', '')}.txt")
         with open(output_filename, 'w', encoding='utf-8') as f_out:
             # Re-number questions before writing
             for i, q in enumerate(questions_data):
@@ -149,7 +175,7 @@ def main():
             answer_lines = []
             for i in range(0, len(questions_data), 10):
                 chunk = questions_data[i:i+10]
-                answer_line = " ".join([f"{q['q_num']}.{q['answer']}" for q in chunk])
+                answer_line = " ".join([f"{int(q['q_num']):02}. {q['answer']}" for q in chunk])
                 answer_lines.append(answer_line)
             f_out.write("\n".join(answer_lines))
         
